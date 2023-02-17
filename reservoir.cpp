@@ -20,17 +20,17 @@ double get_east_storage(std::string date){
   double eastSt;
 
   while(fin >> matchDate >> eastSt){
-    if(date == matchDate){
+    if(date == matchDate){ //if the hardcoded date = the date from reservoir file
       return eastSt;
     }
     fin.ignore(INT_MAX, '\n');
   }
 
   fin.close();
-  exit(1);
 
   return 0;
 }
+
 
 
 //Task B
@@ -41,28 +41,29 @@ double get_min_east(){
     std::cerr << "File cannot be opened for reading." << std::endl;
     exit(1); 
   }
+  
     std:: string junk; 
     getline(fin, junk); 
 
     std:: string matchDate;
     double eastSt;
-    double minEast = INT_MAX;
+    double minEast = INT_MAX; //largest value for integers
 
     while(fin >> matchDate >> eastSt){
-      if (eastSt < minEast){
-        minEast = eastSt;
-        return minEast;
+      if (eastSt < minEast){ 
+        minEast = eastSt; //min = lowest east storage
       }
       fin.ignore(INT_MAX, '\n');
     }
 
   fin.close();
-  exit(1);
     
-    return 0;
+  return minEast;
 }
 
-//Task B--> need to fix later
+
+
+//Task B
 double get_max_east(){
 
   std::ifstream fin("Current_Reservoir_Levels.tsv");
@@ -70,25 +71,23 @@ double get_max_east(){
     std::cerr << "File cannot be opened for reading." << std::endl;
     exit(1); 
   }
+  
     std:: string junk; 
     getline(fin, junk); 
 
     std:: string matchDate;
     double eastSt;
-    double maxEast = INT_MIN;
-
+    double maxEast = INT_MIN; //lowest value for integers
     while(fin >> matchDate >> eastSt){
-      if (eastSt > maxEast){
-        maxEast = eastSt;
-        return maxEast;
+      if (eastSt > maxEast){ 
+        maxEast = eastSt; //max = largest east storage
       }
       fin.ignore(INT_MAX, '\n');
     }
-
+  
   fin.close();
-  exit(1);
-    
-    return 0;
+  
+  return maxEast;
 }
 
 
@@ -100,16 +99,17 @@ std::string compare_basins(std::string date){
     std::cerr << "File cannot be opened for reading." << std::endl;
     exit(1); 
   }
-    std:: string junk; 
-    getline(fin, junk);
-
+  
+  std:: string junk; 
+  getline(fin, junk);
+  
   std:: string matchDate;
   double eastEl;
   double westEl;
 
   while(fin >> matchDate >> eastEl >> westEl){
-    if (date == matchDate){
-      if(eastEl == westEl){
+    if (date == matchDate){ //if hardcoded date = the date from reservoir file
+      if(eastEl == westEl){ 
         return "Equal";
       }
       else if (eastEl > westEl){
@@ -123,7 +123,6 @@ std::string compare_basins(std::string date){
   }
 
   fin.close();
-  exit(1);
   
   return 0;
 }
